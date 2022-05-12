@@ -262,7 +262,7 @@ class zabbix (
   $database_schema                                                            = $zabbix::params::server_database_schema,
   Boolean $database_double_ieee754                                            = $zabbix::params::server_database_double_ieee754,
   $database_user                                                              = $zabbix::params::server_database_user,
-  $database_password                                                          = $zabbix::params::server_database_password,
+  Sensitive[String[1]] $database_password                                     = $zabbix::params::server_database_password,
   $database_socket                                                            = $zabbix::params::server_database_socket,
   $database_port                                                              = $zabbix::params::server_database_port,
   $database_charset                                                           = $zabbix::params::server_database_charset,

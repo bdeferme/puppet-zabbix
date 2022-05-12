@@ -217,7 +217,7 @@ class zabbix::proxy (
   $database_name                                                              = $zabbix::params::proxy_database_name,
   $database_schema                                                            = $zabbix::params::proxy_database_schema,
   $database_user                                                              = $zabbix::params::proxy_database_user,
-  $database_password                                                          = $zabbix::params::proxy_database_password,
+  Sensitive[String[1]] $database_password                                     = $zabbix::params::proxy_database_password,
   $database_socket                                                            = $zabbix::params::proxy_database_socket,
   $database_port                                                              = $zabbix::params::proxy_database_port,
   Optional[Enum['required', 'verify_ca', 'verify_full']] $database_tlsconnect = $zabbix::params::proxy_database_tlsconnect,

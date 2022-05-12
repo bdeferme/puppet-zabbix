@@ -16,7 +16,7 @@ class zabbix::database::postgresql (
   $database_schema_path                               = '',
   $database_name                                      = '',
   $database_user                                      = '',
-  $database_password                                  = '',
+  Sensitive[String[1]] $database_password             = '',
   $database_host                                      = '',
   Optional[Stdlib::Port::Unprivileged] $database_port = undef,
   $database_path                                      = $zabbix::params::database_path,
