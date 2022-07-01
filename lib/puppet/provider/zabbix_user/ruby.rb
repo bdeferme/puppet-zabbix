@@ -72,8 +72,8 @@ Puppet::Type.type(:zabbix_user).provide(:ruby, parent: Puppet::Provider::Zabbix)
     user[:autologin]
   end
 
-  def autologin=(boolean)
-    @property_flush[:autologin] = boolean ? 1 : 0
+  def autologin=(int)
+    @property_flush[:autologin] = int
   end
 
   def role
@@ -150,11 +150,11 @@ Puppet::Type.type(:zabbix_user).provide(:ruby, parent: Puppet::Provider::Zabbix)
     # Get role id
     roleid = zbx.roles.get_id(name: @resource[:role])
     # Get usrgrp ids
-    usrgrps = zbx.usergroups.get_raw(filter: { name: @resource[:usrgrps] }, output: 'usrgrpid')
+    usrgrps = @resource[:usrgrps].empty? ? {} : zbx.usergroups.get_raw(filter: { name: @resource[:usrgrps] }, output: 'usrgrpid')
 
     zbx.users.create(
       username: @resource[:username],
-      firstname: @resource[:firstname],
+      name: @resource[:firstname],
       surname: @resource[:surname],
       autologin: @resource[:autologin].nil? ? 0 : @resource[:autologin],
       roleid: roleid,
