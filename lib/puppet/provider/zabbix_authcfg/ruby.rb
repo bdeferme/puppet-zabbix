@@ -52,8 +52,8 @@ Puppet::Type.type(:zabbix_authcfg).provide(:ruby, parent: Puppet::Provider::Zabb
     auth[:ldap_configured]
   end
 
-  def ldap_configured=(boolean)
-    @property_flush[:ldap_configured] = boolean ? 1 : 0
+  def ldap_configured=(int)
+    @property_flush[:ldap_configured] = int
   end
 
   def ldap_host
@@ -100,8 +100,8 @@ Puppet::Type.type(:zabbix_authcfg).provide(:ruby, parent: Puppet::Provider::Zabb
     auth[:ldap_case_sensitive]
   end
 
-  def ldap_case_sensitive=(boolean)
-    @property_flush[:ldap_case_sensitive] = boolean ? 1 : 0
+  def ldap_case_sensitive=(int)
+    @property_flush[:ldap_case_sensitive] = int
   end
 
   def ldap_bind_password

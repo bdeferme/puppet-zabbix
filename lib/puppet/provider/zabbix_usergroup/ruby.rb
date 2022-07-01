@@ -18,7 +18,7 @@ Puppet::Type.type(:zabbix_usergroup).provide(:ruby, parent: Puppet::Provider::Za
         id: api_usrgrp[0]['id'],
         name: api_usrgrp[0]['name'],
         gui_access: api_usrgrp[0]['gui_access'],
-        debug_mode: api_usrgrp[0]['debug_mode'],
+        debug_mode: api_usrgrp[0]['debug_mode'] ? 1 : 0,
         users_status: api_usrgrp[0]['users_status'],
       }
     end
@@ -43,16 +43,16 @@ Puppet::Type.type(:zabbix_usergroup).provide(:ruby, parent: Puppet::Provider::Za
     usergroup[:debug_mode]
   end
 
-  def debug_mode=(boolean)
-    @property_flush[:debug_mode] = boolean ? 1 : 0
+  def debug_mode=(int)
+    @property_flush[:debug_mode] = int
   end
 
   def users_status
     usergroup[:users_status]
   end
 
-  def users_status=(boolean)
-    @property_flush[:users_status] = boolean ? 0 : 1
+  def users_status=(int)
+    @property_flush[:users_status] = int
   end
 
   def flush
@@ -82,9 +82,9 @@ Puppet::Type.type(:zabbix_usergroup).provide(:ruby, parent: Puppet::Provider::Za
   def create
     zbx.usergroups.create(
       name: @resource[:name],
-      gui_access: @resource[:gui_access].nil? ? 0 : @resource[:gui_access],
-      debug_mode: @resource[:debug_mode] ? 1 : 0,
-      users_status: @resource[:users_status].nil? ? 0 : @resource[:users_status]
+      gui_access: @resource[:gui_access],
+      debug_mode: @resource[:debug_mode],
+      users_status: @resource[:users_status]
     )
   end
 
