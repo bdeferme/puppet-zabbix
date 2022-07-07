@@ -182,7 +182,7 @@ class zabbix::params {
   $ldap_clientcert                          = undef
   $ldap_clientkey                           = undef
   $ldap_reqcert                             = undef
-  $server_api_pass                          = 'zabbix'
+  $server_api_pass                          = Sensitive('zabbix')
   $server_api_user                          = 'Admin'
   $server_database_double_ieee754           = false
   $saml_sp_key                              = undef
@@ -203,7 +203,7 @@ class zabbix::params {
   $server_database_host                     = 'localhost'
   $server_database_host_ip                  = '127.0.0.1'
   $server_database_name                     = 'zabbix_server'
-  $server_database_password                 = 'zabbix_server'
+  $server_database_password                 = Sensitive('zabbix_server')
   $server_database_port                     = undef
   $server_database_schema                   = undef
   $server_database_socket                   = undef
@@ -369,7 +369,7 @@ class zabbix::params {
   $proxy_configfrequency                    = '3600'
   $proxy_database_host                      = 'localhost'
   $proxy_database_name                      = 'zabbix_proxy'
-  $proxy_database_password                  = 'zabbix-proxy'
+  $proxy_database_password                  = Sensitive('zabbix-proxy')
   $proxy_database_port                      = undef
   $proxy_database_schema                    = undef
   $proxy_database_socket                    = undef

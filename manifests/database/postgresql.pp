@@ -11,17 +11,23 @@
 # @param database_path Path to the database executable
 # @author Werner Dijkerman <ikben@werner-dijkerman.nl>
 class zabbix::database::postgresql (
-  $zabbix_type                                        = '',
-  $zabbix_version                                     = $zabbix::params::zabbix_version,
-  $database_schema_path                               = '',
-  $database_name                                      = '',
-  $database_user                                      = '',
-  $database_password                                  = '',
-  $database_host                                      = '',
-  Optional[Stdlib::Port::Unprivileged] $database_port = undef,
-  $database_path                                      = $zabbix::params::database_path,
+  $zabbix_type                                                          = '',
+  $zabbix_version                                                       = $zabbix::params::zabbix_version,
+  $database_schema_path                                                 = '',
+  $database_name                                                        = '',
+  $database_user                                                        = '',
+  Optional[Variant[String[1], Sensitive[String[8]]]] $database_password = '',
+  $database_host                                                        = '',
+  Optional[Stdlib::Port::Unprivileged] $database_port                   = undef,
+  $database_path                                                        = $zabbix::params::database_path,
 ) inherits zabbix::params {
   assert_private()
+
+  $database_password_unsensitive = if $database_password =~ Sensitive[String] {
+    $database_password.unwrap
+  } else {
+    $database_password
+  }
 
   if ($database_schema_path == false) or ($database_schema_path == '') {
     if member(['CentOS', 'RedHat', 'OracleLinux', 'VirtuozzoLinux'], $facts['os']['name']) {
@@ -65,9 +71,9 @@ class zabbix::database::postgresql (
   }
 
   exec { 'update_pgpass':
-    command => "echo ${database_host}:5432:${database_name}:${database_user}:${database_password} >> /root/.pgpass",
+    command => "echo ${database_host}:5432:${database_name}:${database_user}:${database_password_unsensitive} >> /root/.pgpass",
     path    => "/bin:/usr/bin:/usr/local/sbin:/usr/local/bin:${database_path}",
-    unless  => "grep \"${database_host}:5432:${database_name}:${database_user}:${database_password}\" /root/.pgpass",
+    unless  => "grep \"${database_host}:5432:${database_name}:${database_user}:${database_password_unsensitive}\" /root/.pgpass",
     require => File['/root/.pgpass'],
   }
 
