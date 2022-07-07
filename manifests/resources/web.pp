@@ -4,24 +4,24 @@
 # @param zabbix_pass API password.
 # @param apache_use_ssl Whether to use ssl or not.
 class zabbix::resources::web (
-  String[1] $zabbix_url,
-  String[1] $zabbix_user,
-  String[1] $zabbix_pass,
-  Boolean   $apache_use_ssl,
+  String[1]                                $zabbix_url,
+  String[1]                                $zabbix_user,
+  Variant[String[1], Sensitive[String[1]]] $zabbix_pass,
+  Boolean                                  $apache_use_ssl,
 ) {
   file { '/etc/zabbix/api.conf':
     ensure  => file,
     owner   => 'root',
     group   => 'root',
     mode    => '0400',
-    content => epp('zabbix/api.conf.epp',
+    content => Sensitive(epp('zabbix/api.conf.epp',
       {
         zabbix_url     => $zabbix_url,
         zabbix_user    => $zabbix_user,
         zabbix_pass    => $zabbix_pass,
         apache_use_ssl => $apache_use_ssl,
       }
-    ),
+    )),
   }
 
   Zabbix_proxy <<| |>> {

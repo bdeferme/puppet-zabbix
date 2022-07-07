@@ -32,6 +32,7 @@
 #   you can use this parameter to add the database_path to the above mentioned
 #   path.
 # @param manage_database When true, it will configure the database and execute the sql scripts.
+# @param manage_database_timescale When true, it will execute the sql scripts needef for timescaledb.
 # @param manage_repo When true (default) this module will manage the Zabbix repository.
 # @param manage_firewall When true, it will create iptables rules.
 # @param manage_service
@@ -225,6 +226,7 @@ class zabbix (
   Zabbix::Databases $database_type                                            = $zabbix::params::database_type,
   $database_path                                                              = $zabbix::params::database_path,
   $manage_database                                                            = $zabbix::params::manage_database,
+  $manage_database_timescale                                                  = $zabbix::params::manage_database_timescale,
   $default_vhost                                                              = $zabbix::params::default_vhost,
   $manage_vhost                                                               = $zabbix::params::manage_vhost,
   $manage_firewall                                                            = $zabbix::params::manage_firewall,
@@ -250,7 +252,7 @@ class zabbix (
   Optional[Stdlib::Absolutepath] $ldap_clientkey                              = $zabbix::params::ldap_clientkey,
   Optional[Enum['never', 'allow', 'try', 'demand', 'hard']] $ldap_reqcert     = $zabbix::params::ldap_reqcert,
   $zabbix_api_user                                                            = $zabbix::params::server_api_user,
-  $zabbix_api_pass                                                            = $zabbix::params::server_api_pass,
+  Optional[Variant[String[1], Sensitive[String[1]]]] $zabbix_api_pass         = $zabbix::params::server_api_pass,
   Optional[Array[Stdlib::Host,1]] $zabbix_api_access                          = $zabbix::params::server_api_access,
   $listenport                                                                 = $zabbix::params::server_listenport,
   $sourceip                                                                   = $zabbix::params::server_sourceip,
@@ -264,7 +266,7 @@ class zabbix (
   $database_schema                                                            = $zabbix::params::server_database_schema,
   Boolean $database_double_ieee754                                            = $zabbix::params::server_database_double_ieee754,
   $database_user                                                              = $zabbix::params::server_database_user,
-  $database_password                                                          = $zabbix::params::server_database_password,
+  Optional[Variant[String[1], Sensitive[String[1]]]] $database_password       = $zabbix::params::server_database_password,
   $database_socket                                                            = $zabbix::params::server_database_socket,
   $database_port                                                              = $zabbix::params::server_database_port,
   $database_charset                                                           = $zabbix::params::server_database_charset,
