@@ -4,6 +4,9 @@ Facter.add(:zbx_admin_passwd_default) do
   confine kernel: 'Linux'
   setcode do
     require 'zabbixapi'
+  rescue LoadError
+    nil
+  else
     def ini_parse(file)
       current_section = {}
       map = {}
@@ -44,7 +47,6 @@ Facter.add(:zbx_admin_passwd_default) do
       ret = true
       zbx_check.query(method: 'user.logout', params: {})
     end
-
     ret
   end
 end
