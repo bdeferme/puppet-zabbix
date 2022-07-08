@@ -242,6 +242,7 @@ class zabbix::params {
   $server_snmptrapperfile                   = '/tmp/zabbix_traps.tmp'
   $server_sourceip                          = undef
   $server_sshkeylocation                    = undef
+  $server_sslcalocation                     = undef
   $server_sslcertlocation                   = '/usr/lib/zabbix/ssl/certs'
   $server_sslkeylocation                    = '/usr/lib/zabbix/ssl/keys'
   $server_startdbsyncers                    = '4'
