@@ -54,7 +54,7 @@
     String[1]                                              $startjavapollers,
     Integer[1,100]                                         $startlldprocessors,
     Integer                                                $startpingers,
-    Integer                                                $startpollers,
+    Variant[Integer, String[1]]                            $startpollers,
     Variant[Integer, String[1]]                            $startpollersunreachable,
     Integer[1, 1000]                                       $startpreprocessors,
     Variant[Integer, String[1]]                            $startproxypollers,
