@@ -291,6 +291,7 @@ class zabbix::params {
   $server_vaulturl                          = 'https://127.0.0.1:8200'
   $server_vmwarecachesize                   = '8M'
   $server_vmwarefrequency                   = '60'
+  $server_vmwareperffrequency               = undef
   $server_vmwaretimeout                     = undef
   $server_socketdir                         = undef
 
