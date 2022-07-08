@@ -542,6 +542,7 @@ class zabbix::server (
           'vaulturl'                => $vaulturl,
           'vmwarecachesize'         => $vmwarecachesize,
           'vmwarefrequency'         => $vmwarefrequency,
+          'vmwareperffrequency'     => $vmwareperffrequency,
           'vmwaretimeout'           => $vmwaretimeout,
           'webserviceurl'           => $webserviceurl,
           'zabbix_user'             => $zabbix::params::server_zabbix_user,
