@@ -67,6 +67,9 @@
 # @param startreportwriters Number of pre-forked report writer instances.
 # @param webserviceurl URL to Zabbix web service, used to perform web related tasks.
 # @param vmwarefrequency How often zabbix will connect to vmware service to obtain a new datan.
+# @param vmwareperffrequency
+#   Delay in seconds between performance counter statistics retrieval from a single VMware service.
+#   This delay should be set to the least update interval of any VMware monitoring item that uses VMware performance counters.
 # @param vaultdbpath Vault path from where credentials for database will be retrieved by keys 'password' and 'username'.
 # @param vaulttoken
 #   Vault authentication token that should have been generated exclusively for Zabbix proxy with read-only
@@ -133,6 +136,7 @@
 # @param include_dir You may include individual files or all files in a directory in the configuration file.
 # @param loadmodulepath Full path to location of server modules.
 # @param loadmodule Module to load at server startup.
+# @param sslcalocation_dir Location of certificate authority (CA) files for SSL server certificate verification.
 # @param sslcertlocation_dir Location of SSL client certificate files for client authentication.
 # @param sslkeylocation_dir Location of SSL private key files for client authentication.
 # @param manage_selinux Whether we should manage SELinux rules.
@@ -223,6 +227,7 @@ class zabbix::server (
   Optional[String[1]] $vaulttoken                                             = $zabbix::params::server_vaulttoken,
   Stdlib::HTTPSUrl $vaulturl                                                  = $zabbix::params::server_vaulturl,
   $vmwarefrequency                                                            = $zabbix::params::server_vmwarefrequency,
+  $vmwareperffrequency                                                        = $zabbix::params::server_vmwareperffrequency,
   $vmwarecachesize                                                            = $zabbix::params::server_vmwarecachesize,
   $vmwaretimeout                                                              = $zabbix::params::server_vmwaretimeout,
   $snmptrapperfile                                                            = $zabbix::params::server_snmptrapperfile,
