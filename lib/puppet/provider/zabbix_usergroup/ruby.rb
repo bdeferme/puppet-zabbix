@@ -83,7 +83,7 @@ Puppet::Type.type(:zabbix_usergroup).provide(:ruby, parent: Puppet::Provider::Za
     zbx.usergroups.create(
       name: @resource[:name],
       gui_access: @resource[:gui_access],
-      debug_mode: @resource[:debug_mode],
+      debug_mode: @resource[:debug_mode].nil ? 0 : @resource[:debug_mode],
       users_status: @resource[:users_status]
     )
   end
