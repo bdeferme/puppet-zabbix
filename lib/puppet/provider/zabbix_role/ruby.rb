@@ -10,7 +10,7 @@ Puppet::Type.type(:zabbix_role).provide(:ruby, parent: Puppet::Provider::Zabbix)
   end
 
   def get_id(rolename)
-    zbx.roles.get_id(rolename)
+    zbx.roles.get_id(name: rolename)
   end
 
   def get_role_by_name(name)
@@ -68,7 +68,6 @@ Puppet::Type.type(:zabbix_role).provide(:ruby, parent: Puppet::Provider::Zabbix)
 
   # Defining all rules is cumbersome, this allows for defining just the needed rules, keeping all others to be the zabbix default
   def check_rules
-    return false
     # Merge 'IS' (role[:rules]) with 'SHOULD' (resource[:rules])
     merged = role[:rules].merge(@resource[:rules]) do |_key, oldval, newval|
       if oldval.is_a?(Array)
