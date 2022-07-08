@@ -80,12 +80,13 @@ Puppet::Type.type(:zabbix_usergroup).provide(:ruby, parent: Puppet::Provider::Za
   end
 
   def create
-    zbx.usergroups.create(
-      name: @resource[:name],
-      gui_access: @resource[:gui_access],
-      debug_mode: @resource[:debug_mode].nil ? 0 : @resource[:debug_mode],
-      users_status: @resource[:users_status]
-    )
+    params = {}
+    params[:name] = @resource[:name]
+    params[:gui_access] = @resource[:gui_access] unless @resource[:gui_access].nil?
+    params[:debug_mode] = @resource[:debug_mode] unless @resource[:debug_mode].nil?
+    params[:users_status] = @resource[:users_status] unless @resource[:users_status].nil?
+
+    zbx.usergroups.create(params)
   end
 
   def exists?
