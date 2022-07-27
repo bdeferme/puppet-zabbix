@@ -326,6 +326,7 @@ class zabbix::web (
       'zabbix_server_name'      => $zabbix_server_name,
       'ldap_cacert'             => $ldap_cacert,
       'ldap_clientcert'         => $ldap_clientcert,
+      'ldap_clientkey'          => $ldap_clientkey,
       'ldap_reqcert'            => $ldap_reqcert,
       'saml_sp_key'             => $saml_sp_key,
       'saml_sp_cert'            => $saml_sp_cert,
