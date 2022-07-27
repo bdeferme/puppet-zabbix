@@ -13,6 +13,7 @@
     Stdlib::Fqdn                              $zabbix_server_name,
     Optional[String[1]]                       $ldap_cacert,
     Optional[String[1]]                       $ldap_clientcert,
+    Optional[String[1]]                       $ldap_clientkey,
     Optional[String[1]]                       $ldap_reqcert,
     Optional[String[1]]                       $saml_sp_key,
     Optional[String[1]]                       $saml_sp_cert,
