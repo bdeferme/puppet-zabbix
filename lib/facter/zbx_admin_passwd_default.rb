@@ -41,8 +41,10 @@ Facter.add(:zbx_admin_passwd_default) do
         http_password: 'zabbix',
         ignore_version: true
       )
-    rescue ZabbixApi::ApiError
+    rescue ZabbixApi::ApiError # Logon failed (non-default pw)
       ret = false
+    rescue Exception # Something else failed (zabbix/apache not up yet?)
+      ret = true
     else
       ret = true
       zbx_check.query(method: 'user.logout', params: {})
