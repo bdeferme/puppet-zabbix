@@ -166,6 +166,11 @@ Puppet::Type.newtype(:zabbix_host) do
     desc 'Certificate subject.'
   end
 
+  def set_sensitive_parameters(sensitive_parameters) # rubocop:disable Naming/AccessorMethodName
+    parameter(:macros).sensitive = true if parameter(:macros)
+    super(sensitive_parameters)
+  end
+
   autorequire(:file) { '/etc/zabbix/api.conf' }
 
   validate do
